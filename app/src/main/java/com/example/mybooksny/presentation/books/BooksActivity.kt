@@ -1,5 +1,7 @@
 package com.example.mybooksny.presentation.books
 
+import android.arch.lifecycle.Observer
+import android.arch.lifecycle.ViewModelProviders
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
@@ -17,20 +19,19 @@ class BooksActivity : AppCompatActivity() {
         toolbarMain.title = getString(R.string.books_title);
         setSupportActionBar(toolbarMain);
 
-        with(recyclerBooks) {
-            layoutManager = LinearLayoutManager(this@BooksActivity, RecyclerView.VERTICAL, false);
-            setHasFixedSize(true);
-            adapter = BooksAdapter(getBooks())
-        }
+        val viewModel: BooksViewModel = ViewModelProviders.of(this).get(BooksViewModel::class.java)
+        viewModel.booksLiveData.observe(this, Observer {
+            it?.let{books ->
+                with(recyclerBooks) {
+                    layoutManager = LinearLayoutManager(this@BooksActivity, RecyclerView.VERTICAL, false);
+                    setHasFixedSize(true);
+                    adapter = BooksAdapter(books)
+                }
+            }
+        })
+        viewModel.getBooks();
+
     }
 
-    fun getBooks(): List<Book> {
-        return listOf(
-            Book("Title", "Author 1"),
-            Book("Title 2", "Author 2"),
-            Book("Title 3", "Author 3"),
-            Book("Title 4", "Author 4"),
-            Book("Title 5", "Author 5")
-        )
-    }
+
 }
