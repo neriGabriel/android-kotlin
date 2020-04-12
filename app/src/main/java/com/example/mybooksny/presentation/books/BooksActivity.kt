@@ -23,15 +23,27 @@ class BooksActivity : AppCompatActivity() {
 
         val viewModel: BooksViewModel = ViewModelProviders.of(this).get(BooksViewModel::class.java)
         viewModel.booksLiveData.observe(this, Observer {
-            it?.let{books ->
+            it?.let { books ->
                 with(recyclerBooks) {
                     layoutManager = LinearLayoutManager(this@BooksActivity, RecyclerView.VERTICAL, false);
                     setHasFixedSize(true);
-                    adapter = BooksAdapter(books) {book ->
-                        val intent =  BookDetailsActivity.getStartIntent(this@BooksActivity, book.title, book.description)
+                    adapter = BooksAdapter(books) { book ->
+                        val intent =
+                            BookDetailsActivity.getStartIntent(this@BooksActivity, book.title, book.description)
                         this@BooksActivity.startActivity(intent)
 
                     }
+                }
+            }
+        })
+
+
+        viewModel.viewFlipperLiveData.observe(this, Observer {
+
+            it?.let { viewFlipper ->
+                viewFlipperBooks.displayedChild = viewFlipper.first
+                viewFlipper.second?.let{ errorMessageResId ->
+                    textViewError.text = getString(errorMessageResId)
                 }
             }
         })

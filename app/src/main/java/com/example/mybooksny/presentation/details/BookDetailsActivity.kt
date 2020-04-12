@@ -20,8 +20,10 @@ class BookDetailsActivity : AppCompatActivity() {
         bookDetailsTitle.text = title
         bookDetailsDescription.text = description
 
-        toolbarMain.title = "DETALHES DO LIVRO: $title";
+        toolbarMain.title = "BOOK $title DETAILS";
         setSupportActionBar(toolbarMain);
+
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
     }
 
