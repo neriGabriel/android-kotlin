@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import com.example.mybooksny.R
 import kotlinx.android.synthetic.main.activity_book_details.*
+import kotlinx.android.synthetic.main.include_toolbar.*
 
 class BookDetailsActivity : AppCompatActivity() {
 
@@ -18,6 +19,9 @@ class BookDetailsActivity : AppCompatActivity() {
 
         bookDetailsTitle.text = title
         bookDetailsDescription.text = description
+
+        toolbarMain.title = "DETALHES DO LIVRO: $title";
+        setSupportActionBar(toolbarMain);
 
     }
 

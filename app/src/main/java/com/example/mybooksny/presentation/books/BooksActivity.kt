@@ -10,6 +10,7 @@ import com.example.mybooksny.R
 import com.example.mybooksny.data.model.Book
 import com.example.mybooksny.presentation.details.BookDetailsActivity
 import kotlinx.android.synthetic.main.activity_books.*
+import kotlinx.android.synthetic.main.include_toolbar.*
 
 class BooksActivity : AppCompatActivity() {
 
